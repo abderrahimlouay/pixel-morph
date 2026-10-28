@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Pixel Morph</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <span class="logo" aria-hidden="true"></span>
+    <h1>Pixel Morph</h1>
+    <p>Rearrange the pixels of one image into another.</p>
+  </header>
+
+  <main class="layout">
+    <section class="panel" aria-label="Controls">
+      <div class="pair">
+        <label class="drop" data-kind="source">
+          <input type="file" accept="image/*">
+          <img alt="Source preview" hidden>
+          <span class="hint"><b>Source</b><small>Drop or click</small></span>
+        </label>
+        <span class="arrow" aria-hidden="true">&rarr;</span>
+        <label class="drop" data-kind="target">
+          <input type="file" accept="image/*">
+          <img alt="Target preview" hidden>
+          <span class="hint"><b>Target</b><small>Drop or click</small></span>
+        </label>
+      </div>
+
+      <fieldset class="seg">
+        <legend>Resolution</legend>
+        <label><input type="radio" name="n" value="48"><span>48</span></label>
+        <label><input type="radio" name="n" value="64" checked><span>64</span></label>
+        <label><input type="radio" name="n" value="96"><span>96</span></label>
+      </fieldset>
+
+      <div class="field">
+        <label for="spatial">Spatial pull <output id="spatial-out">35</output></label>
+        <input id="spatial" type="range" min="0" max="100" step="5" value="35">
+        <small>Low: match colors exactly. High: keep pixels close to home.</small>
+      </div>
+
+      <div class="field">
+        <label for="dur">Duration <output id="dur-out">3.0 s</output></label>
+        <input id="dur" type="range" min="1" max="8" step="0.5" value="3">
+      </div>
+
+      <label class="check"><input id="fx" type="checkbox" checked> Particle motion</label>
+
+      <div class="actions">
+        <button id="morph" class="primary" disabled>Morph</button>
+        <button id="replay" disabled>Replay</button>
+        <button id="reset" disabled>Reset</button>
+      </div>
+    </section>
+
+    <section class="stage" aria-label="Result">
+      <div class="frame" id="frame" data-empty>
+        <canvas id="canvas" width="512" height="512" role="img" aria-label="Morph animation"></canvas>
+        <p class="placeholder">Your morph appears here</p>
+        <div class="progress" id="progress" hidden></div>
+      </div>
+      <div class="chips">
+        <span id="chip-res" class="chip" hidden></span>
+        <span id="chip-px" class="chip" hidden></span>
+        <span id="chip-time" class="chip" hidden></span>
+        <span id="status" class="status" role="status" aria-live="polite">Add two images to begin</span>
+      </div>
+      <p id="error" class="error" role="alert" hidden></p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
